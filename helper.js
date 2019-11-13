@@ -12,6 +12,7 @@ window.onload = async () => {
   console.log(response);
 };
 
+
 // const url = "https://strive-school-testing-apis.herokuapp.com/api/product/";
 
 // getProducts = async () => {

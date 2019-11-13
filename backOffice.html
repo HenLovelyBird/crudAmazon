@@ -65,10 +65,9 @@ You can also start from the previous marketplace. -->
                         <textarea class="form-control" id="description" rows="5" required></textarea>
                     </div>
 
-                    <div class="row">
-                        <label for="image">Product Image</label>
-                        <input type="name" class="form-control" id="image" required />
-                        <img src="https://drop.ndtv.com/TECH/product_database/images/2152017124957PM_635_nokia_3310.jpeg?downsize=*:420&output-quality=80"/>
+                    <div class="form-group">
+                        <label for="brand">Product Brand</label>
+                        <textarea class="form-control" id="description" rows="5" required></textarea>
                     </div>
 
                     <div class="form-group">
@@ -113,25 +112,45 @@ You can also start from the previous marketplace. -->
     <script src="helper.js"></script>
 
     <script>
-        // window.onload = async () => {
-        //     const products = await getProducts();
-        //     console.log("Products", products);
-        //     const productsColumn = document.querySelector("#productsColumn");
+        window.onload = async () => {
+            const products = await getProducts();
+            console.log("Products", products);
+            const productsColumn = document.querySelector("#productsColumn");
 
-        //     if (products.lenth > 0) {
-        //         currentProductsDiv.innerHTML = products
-        //             .map(
-        //                 event => `
-        //         <div class="row">
-        //             <a href="details.html?id="${product.brand}"> : ${product.description} - ${product.price}</a>
-        //         </div>
-        //         `
-        //             )
-        //             .join("");
-        //     } else {
-        //         currentProductsDiv.innerText = "Add Products";
-        //     }
-        // };
+            if (products.lenth > 0) {
+                currentProductsDiv.innerHTML = products
+                    .map(
+                        event => `
+                <div class="row">
+                    <a href="details.html?id="${product.brand}"> : ${product.description} - ${product.price}</a>
+                </div>
+                `
+                    )
+                    .join("");
+            } else {
+                currentProductsDiv.innerText = "Add Products";
+            }
+        };
+
+        handleSubmit = async () => {
+            event.preventDefault();
+            const myEvent = {
+                name: document.querySelector("#name").value,
+                description: document.querySelector("#description").value,
+                brand: document.querySelector("#brand").value,
+                price: document.querySelector("#price").value,
+                imageUrl: "https://drop.ndtv.com/TECH/product_database/images/2152017124957PM_635_nokia_3310.jpeg?downsize=*:420&output-quality=80"
+            };
+            cosole.log("myEvent", JSON.stringify(myEvent));
+
+            const response = await saveEvent(myEvent);
+
+            if (response.ok) {
+                alert("The Product was saved successfully");
+            } else {
+                alert ("The product was NOT saved successfully");
+            }
+        };
     </script>
 </body>
 
