@@ -70,11 +70,22 @@ You can also start from the previous marketplace. -->
     <script src="helper.js"></script>
 
     <script>
-        // window.onload = async () => {
-        //     const products = await getProducts();
-        //     console.log("Products", products);
+        window.onload = async () => {
+            let username = "user16";
+            let password = "c9WEUxMS294hN6fF";
+            let token = btoa (username + ":" + password)
 
-        //     const currentProductsDiv = document.querySelector("#currentProducts");
+            let resp = await fetch("https://strive-school-testing-apis.herokuapp.com/api/product/", {
+                headers: {
+                    "Authorization": "Basic" + token
+                }
+            })
+            let jsonResp = await resp.json()
+            
+            console.log(jsonResp)
+        }
+
+            const currentProductsDiv = document.querySelector("#currentProducts");
 
         //     if (products.length > 0) {
         //         currentProductsDiv.innerHTML = products
