@@ -10,12 +10,18 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+        <style>
+            .product-items {
+                list-style-type: none;
+            }
+        </style>
 </head>
 
 <body>
     <div class="container">
         <div class="row" id="products">
-
+            
         </div>
     </div>
 
@@ -40,17 +46,21 @@
 
             let resp = await fetch("https://strive-school-testing-apis.herokuapp.com/api/product/", {
                 headers: {
-                    "Authorization": "Basic" + token
+                    "Authorization": " Basic " + token
                 }
             })
 
             let jsonResp = await resp.json()
 
             document.querySelector("#products").innerHTML = jsonResp.map(product => `
+            <li class="product-items">
             <div class="col-md-3">
-                <img src="${product.imageUrl}" style=width:100% />
+                <img src="${product.imageUrl}" style="width:100%"" />
                 <p>${product.name} - $ ${product.price}</p>
+                <input type="button" class="btn btn-secondary" value="Edit"/>
+                <input type="button" class="btn btn-danger" value="Remove" onclick"deleteRow('${product._id}')"/>
                 </div>
+                </li>
             `).join("")
 
             console.log(jsonResp)
@@ -65,12 +75,27 @@
                 method: "POST",
                 body: JSON.stringify(product),
                 headers: {
-                    "Authorization": "Basic" + token,
+                    "Authorization": "Basic " + token,
                     "Content-Type": "application/json"
                 }
             })
 
             let jsonResp = await resp.json()
+        }
+
+        deleteRow = async (_id) => {
+            var button = event.currentTarget;
+            var success = await deleteProduct(_id);
+
+            if (success) {
+               // i would like to put something here like: alert("are you sure you want to delete this item forever?")
+
+                var li = button.closest("product-items");
+                li.parentElement.removeChild(li);
+            }
+            else{
+                alert("Something went wrong, Please try later!")
+            }
         }
     </script>
 

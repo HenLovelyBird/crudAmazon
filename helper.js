@@ -13,26 +13,26 @@ window.onload = async () => {
 };
 
 
-// const url = "https://strive-school-testing-apis.herokuapp.com/api/product/";
+const url = "https://strive-school-testing-apis.herokuapp.com/api/product/";
 
-// getProducts = async () => {
-//     const response = await fetch(url);
-//     return await response.json();
-// };
+getProducts = async () => {
+    const response = await fetch(url);
+    return await response.json();
+};
 
-// getProduct = async id => {
-//     const response = await fetch (url + id);
-//     return await response.json();
-// };
+getProduct = async id => {
+    const response = await fetch (url + id);
+    return await response.json();
+};
 
-// saveProduct = async event => {
-//     const response = await fetch (url, {
-//         method: "POST", 
-//         body:JSON.stringify(product),
-//         headers: new Headers({
-//             "Authorization": `Basic ${base64.encode(`${username}:${c9WEUxMS294hN6fF}`)}`
-//             // "Content-Type": "application/json"
-//         })
-//     });
-//     return response;
-// };
+saveProduct = async event => {
+    const response = await fetch (url, {
+        method: "POST", 
+        body:JSON.stringify(product),
+        headers: new Headers({
+            "Authorization": `Basic ${base64.encode(`${username}:${c9WEUxMS294hN6fF}`)}`
+            // "Content-Type": "application/json"
+        })
+    });
+    return response;
+};
